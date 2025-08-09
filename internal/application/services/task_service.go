@@ -19,7 +19,7 @@ func NewTaskService(semRepo repository.SemaphoreRepository, tRepo repository.Tas
 	}
 }
 
-func (ts *TaskService) StartTask(ctx context.Context, taskID model.TaskID) error {
+func (ts *TaskService) StartTask(ctx context.Context, taskID string) error {
 	t := model.NewTaskObject(taskID)
 	if err := ts.taskRepo.Store(t); err != nil {
 		return err
@@ -59,6 +59,6 @@ func (ts *TaskService) ExecuteTask(ctx context.Context, t *model.TaskObject) {
 	ts.taskRepo.Store(t)
 }
 
-func (ts *TaskService) GetTaskStatus(ctx context.Context, id model.TaskID) (*model.TaskObject, error) {
+func (ts *TaskService) GetTaskStatus(ctx context.Context, id string) (*model.TaskObject, error) {
 	return ts.taskRepo.FindById(id)
 }

@@ -2,7 +2,6 @@ package httpInterface
 
 import (
 	taskService "07082025/internal/application/services"
-	"07082025/internal/domain/model"
 	"encoding/json"
 	"net/http"
 )
@@ -16,7 +15,7 @@ func NewHTTPHandler(taskService *taskService.TaskService) *TaskHandler {
 }
 
 func (h *TaskHandler) StartTask(w http.ResponseWriter, r *http.Request) {
-	taskID := model.TaskID(r.URL.Query().Get("id"))
+	taskID := r.URL.Query().Get("id")
 	if taskID == "" {
 		http.Error(w, "id is required", http.StatusBadRequest)
 		return
@@ -31,7 +30,7 @@ func (h *TaskHandler) StartTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *TaskHandler) GetTaskStatus(w http.ResponseWriter, r *http.Request) {
-	taskID := model.TaskID(r.URL.Query().Get("id"))
+	taskID := r.URL.Query().Get("id")
 	if taskID == "" {
 		http.Error(w, "id is required", http.StatusBadRequest)
 		return

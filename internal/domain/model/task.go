@@ -3,7 +3,6 @@ package model
 import "time"
 
 type TaskStatus string
-type TaskID string
 
 const (
 	StatusWaiting     TaskStatus = "waiting"
@@ -13,13 +12,13 @@ const (
 )
 
 type TaskObject struct {
-	ID        TaskID
+	ID        string
 	Status    TaskStatus
 	CreatedAt string
 	Error     string
 }
 
-func NewTaskObject(id TaskID) *TaskObject {
+func NewTaskObject(id string) *TaskObject {
 	return &TaskObject{
 		ID:        id,
 		Status:    StatusWaiting,

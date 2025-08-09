@@ -11,13 +11,13 @@ var ErrTaskNotFound = errors.New("task with this id not found")
 
 func NewMemoryRepository() repository.TaskRepository {
 	return &MemoryRepository{
-		tasks: make(map[model.TaskID]*model.TaskObject),
+		tasks: make(map[string]*model.TaskObject),
 	}
 }
 
 type MemoryRepository struct {
 	mu    sync.RWMutex
-	tasks map[model.TaskID]*model.TaskObject
+	tasks map[string]*model.TaskObject
 }
 
 func (r *MemoryRepository) Store(task *model.TaskObject) error {
@@ -28,7 +28,7 @@ func (r *MemoryRepository) Store(task *model.TaskObject) error {
 	return nil
 }
 
-func (r *MemoryRepository) FindById(id model.TaskID) (*model.TaskObject, error) {
+func (r *MemoryRepository) FindById(id string) (*model.TaskObject, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 
@@ -39,7 +39,7 @@ func (r *MemoryRepository) FindById(id model.TaskID) (*model.TaskObject, error) 
 	return task, nil
 }
 
-func (r *MemoryRepository) Delete(id model.TaskID) error {
+func (r *MemoryRepository) Delete(id string) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	if _, exists := r.tasks[id]; !exists {
