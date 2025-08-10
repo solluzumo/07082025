@@ -1,6 +1,6 @@
 package dto
 
 type LinkRequestDto struct {
-	TaskID string
-	URL    string
+	TaskID string `json:"task_id"`
+	URL    string `json:"url"`
 }

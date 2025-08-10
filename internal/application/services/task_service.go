@@ -1,11 +1,17 @@
 package service
 
 import (
+	"07082025/internal/application/dto"
 	"07082025/internal/domain/model"
 	"07082025/internal/domain/repository"
 	"context"
 	"time"
 )
+
+type HttpError struct {
+	StatusCode int
+	Message    string
+}
 
 type TaskService struct {
 	sem      repository.SemaphoreRepository
@@ -57,6 +63,11 @@ func (ts *TaskService) ExecuteTask(ctx context.Context, t *model.TaskObject) {
 
 	t.Status = model.StatusArchive
 	ts.taskRepo.Store(t)
+}
+
+func (ts *TaskService) AddLink(ctx context.Context, request dto.LinkRequestDto) HttpError {
+
+	return HttpError{}
 }
 
 func (ts *TaskService) GetTaskStatus(ctx context.Context, id string) (*model.TaskObject, error) {

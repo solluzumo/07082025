@@ -29,7 +29,8 @@ func NewApp(semaphore repository.SemaphoreRepository) *App {
 }
 
 func (a *App) Run() {
-	http.HandleFunc("/task/start", a.httpHandler.StartTask)
-	http.HandleFunc("/task/status", a.httpHandler.GetTaskStatus)
+	http.HandleFunc("/task/start", a.httpHandler.StartTaskHandler)
+	http.HandleFunc("/task/status", a.httpHandler.GetTaskStatusHandler)
+	http.HandleFunc("/task/add-link", a.httpHandler.AddLinkHandler)
 	http.ListenAndServe(":8080", nil)
 }
